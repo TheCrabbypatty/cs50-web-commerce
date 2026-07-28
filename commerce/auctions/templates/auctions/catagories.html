@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Catagories</h2>
+    <form action = "" method = "GET">
+        {% csrf_token %}
+        <select name="catagory" onchange="this.form.submit()">
+            <option value="" {% if not selected %}selected{% endif %}>
+            -- Select a category --
+            </option>
+            {% for value, label in Catagory.choices %}
+                <option value="{{ value }}" {% if selected == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>  
+    </form> 
+    {% for listing in listings %}
+        {% if listing.active == True %}
+            <a href = "auction/{{ listing.id }}">
+                <div class = "listing_block">
+                    <div class = "listing_image">
+                        <img src = "{{ listing.image_url }}" alt = "No image given" width = "200px"> 
+                    </div>
+                    <div class = "listing_text">
+                        <h5>{{ listing.title }}</h5>
+                        <small>Price: ${{ listing.current_price }}</small>  
+                        <br>
+                        <small>Description: {{ listing.description }}</small>   
+                    </div>
+                </div>
+            </a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

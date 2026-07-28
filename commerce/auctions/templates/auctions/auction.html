@@ -1,0 +1,68 @@
+ {% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>{{ listing.title }}</h1>
+    {% if listing.watchlist == False %}
+        <form action = "" method = "POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="Add">
+            <button type = submit>Add to Watchlist</button>
+        </form>
+    {% else %}
+        <form action = "" method = "POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="Remove">
+            <button>Remove from Watchlist</button>
+        </form>
+    {% endif %}
+    {% if not listing.active and listing.winner == request.user %}
+        <h1>🏆🏆Congrats {{ request.user }}, you have won the auction!🏆🏆</h1>
+    {% endif %}
+    <div class = "auction_block">
+        <div class = "auction_image">
+            <img src = "{{ listing.image_url }}" alt = "No image given"> 
+        </div>
+        <div class = "auction_text">
+            <h4>Price:</h4>
+            <p>${{ listing.current_price }}</p>
+            <h4>Description:</h4>
+            <p>{{ listing.description }}</p>
+        </div>
+        <div class = "bid">
+            {% if listing.active %}
+                <h4>Place a bid</h4>
+                <form action = "" method = "POST">
+                    {% csrf_token %}
+                    $<input type = "number" name = "amount" min="{{ listing.current_price }}" placeholder="{{ listing.current_price }}">
+                    <input type = "submit" value = "Bid">
+                    <input type="hidden" name="action" value="Bid">
+                </form>
+            {% endif %}
+        </div>
+        <h4>Comments</h4>
+        {% for comment in comments %}
+            <div class = "comment_block">
+                <b>{{ comment.creator }}</b>
+                <small>{{ comment.date_created }}</small>
+                <p>{{ comment.contents }}</p>
+            </div>
+        {% endfor %}
+        <div class = "comments">
+            <h5>Write a comment</h5>
+            <form action = "" method="POST">
+                {% csrf_token %}
+                <input name = "content" type = "text" minlength="0" maxlength="1000">
+                <input type = "submit" value = "Comment">
+                <input type="hidden" name="action" value="Comment">
+            </form> 
+        </div>
+        {% if owner and listing.active %}
+            <h2>Close Auction</h2>
+            <form action = "" method = "POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="Close">
+                <button type="submit">Close Auction</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

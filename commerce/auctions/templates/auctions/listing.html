@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>New Listing</h2>
+    <p class = "error">{{ error }}</p>
+     <br>
+    <form action="{% url 'listing' %}" method="POST">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input id = "title" name = "title" type="text">
+        <br>
+        <br>
+        <label for="description">Description:</label>
+        <input id = "description" name = "description" type = "text">
+        <br>
+        <br>
+        <label for="starting_bid">Starting Bid:</label>
+        <input id = "starting_bid" name = "starting_bid" type = "number" min="0" max="99999999"></input>
+        <br>
+        <br>
+        <label for="catagory">Catagory:</label>
+        <select id = "catagory" name = "catagory">
+            {% for code, name in catagories %}
+                <option value = "{{ code }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="image">Image URL:</label>
+        <input id = "image" name = "image_url" type = "url">
+        <br>
+        <br>
+        <input type = submit value = "Save">
+    </form>
+{% endblock %}
