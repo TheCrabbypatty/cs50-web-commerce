@@ -132,3 +132,10 @@ Texthttp://127.0.0.1:8000/
 
 <h3>📚 Course:</h3>
 This project was built as part of Harvard’s CS50 Web Programming with Python and JavaScript course.
+
+
+## Last Updated
+
+<!-- TIMESTAMP_START -->
+_Last updated: 2026-08-30 19:09 UTC_
+<!-- TIMESTAMP_END -->
