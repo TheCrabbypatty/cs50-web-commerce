@@ -137,5 +137,5 @@ This project was built as part of Harvard’s CS50 Web Programming with Python a
 ## Last Updated
 
 <!-- TIMESTAMP_START -->
-_Last updated: 2026-10-18 18:58 UTC_
+_Last updated: 2026-10-18 21:22 UTC_
 <!-- TIMESTAMP_END -->
